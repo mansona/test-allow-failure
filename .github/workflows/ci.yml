@@ -10,9 +10,18 @@ on:
 jobs:
   test: 
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        code: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
     steps:
-      - run: exit 1
+      - id: build
+        run: sleep $((RANDOM % 30)) && exit ${{ matrix.code }}
         continue-on-error: true
-      - if: failure()
-        run: echo we did it
+      - uses: mainmatter/continue-on-error-comment@hacking
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          outcome: ${{ steps.build.outcome }}
+          test-id: Error code ${{ matrix.code }}
       
