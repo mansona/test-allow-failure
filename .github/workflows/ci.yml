@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request: {}
+
+jobs:
+  test: 
+    continue-on-error: true
+    steps:
+      - run: exit 1
+      - if: failure()
+        run: echo we did it
+      
