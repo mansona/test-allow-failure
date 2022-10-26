@@ -10,9 +10,9 @@ on:
 jobs:
   test: 
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - run: exit 1
+        continue-on-error: true
       - if: failure()
         run: echo we did it
       
